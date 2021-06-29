@@ -1,0 +1,163 @@
+---------------------------------------------------------------------------
+
+1Q
+TypeError                                 Traceback (most recent call last)
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in _convert_listlike_datetimes(arg, format, name, tz, unit, errors, infer_datetime_format, dayfirst, yearfirst, exact)
+    455             try:
+--> 456                 values, tz = conversion.datetime_to_datetime64(arg)
+    457                 dta = DatetimeArray(values, dtype=tz_to_dtype(tz))
+
+pandas\_libs\tslibs\conversion.pyx in pandas._libs.tslibs.conversion.datetime_to_datetime64()
+
+TypeError: Unrecognized value type: <class 'str'>
+
+During handling of the above exception, another exception occurred:
+
+ValueError                                Traceback (most recent call last)
+<ipython-input-16-cc16e53e9b6f> in <module>
+----> 1 df['Journey_day'] = pd.to_datetime(df.Date_of_Journey,format="%d%m%Y").dt.day
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in to_datetime(arg, errors, dayfirst, yearfirst, utc, format, exact, unit, infer_datetime_format, origin, cache)
+    799                 result = result.tz_localize(tz)
+    800     elif isinstance(arg, ABCSeries):
+--> 801         cache_array = _maybe_cache(arg, format, cache, convert_listlike)
+    802         if not cache_array.empty:
+    803             result = arg.map(cache_array)
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in _maybe_cache(arg, format, cache, convert_listlike)
+    176         unique_dates = unique(arg)
+    177         if len(unique_dates) < len(arg):
+--> 178             cache_dates = convert_listlike(unique_dates, format)
+    179             cache_array = Series(cache_dates, index=unique_dates)
+    180     return cache_array
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in _convert_listlike_datetimes(arg, format, name, tz, unit, errors, infer_datetime_format, dayfirst, yearfirst, exact)
+    458                 return DatetimeIndex._simple_new(dta, name=name)
+    459             except (ValueError, TypeError):
+--> 460                 raise e
+    461 
+    462     if result is None:
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in _convert_listlike_datetimes(arg, format, name, tz, unit, errors, infer_datetime_format, dayfirst, yearfirst, exact)
+    421             if result is None:
+    422                 try:
+--> 423                     result, timezones = array_strptime(
+    424                         arg, format, exact=exact, errors=errors
+    425                     )
+
+pandas\_libs\tslibs\strptime.pyx in pandas._libs.tslibs.strptime.array_strptime()
+
+ValueError: time data '24/03/2019' does not match format '%d%m%Y' (match)
+
+
+
+2Q:---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in _convert_listlike_datetimes(arg, format, name, tz, unit, errors, infer_datetime_format, dayfirst, yearfirst, exact)
+    455             try:
+--> 456                 values, tz = conversion.datetime_to_datetime64(arg)
+    457                 dta = DatetimeArray(values, dtype=tz_to_dtype(tz))
+
+pandas\_libs\tslibs\conversion.pyx in pandas._libs.tslibs.conversion.datetime_to_datetime64()
+
+TypeError: Unrecognized value type: <class 'int'>
+
+During handling of the above exception, another exception occurred:
+
+ValueError                                Traceback (most recent call last)
+<ipython-input-21-28ef735b9a1b> in <module>
+----> 1 df['Journey_month'] = pd.to_datetime(df['Journey_day'],format= "%d/%m/%Y").dt.month
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in to_datetime(arg, errors, dayfirst, yearfirst, utc, format, exact, unit, infer_datetime_format, origin, cache)
+    799                 result = result.tz_localize(tz)
+    800     elif isinstance(arg, ABCSeries):
+--> 801         cache_array = _maybe_cache(arg, format, cache, convert_listlike)
+    802         if not cache_array.empty:
+    803             result = arg.map(cache_array)
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in _maybe_cache(arg, format, cache, convert_listlike)
+    176         unique_dates = unique(arg)
+    177         if len(unique_dates) < len(arg):
+--> 178             cache_dates = convert_listlike(unique_dates, format)
+    179             cache_array = Series(cache_dates, index=unique_dates)
+    180     return cache_array
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in _convert_listlike_datetimes(arg, format, name, tz, unit, errors, infer_datetime_format, dayfirst, yearfirst, exact)
+    458                 return DatetimeIndex._simple_new(dta, name=name)
+    459             except (ValueError, TypeError):
+--> 460                 raise e
+    461 
+    462     if result is None:
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\tools\datetimes.py in _convert_listlike_datetimes(arg, format, name, tz, unit, errors, infer_datetime_format, dayfirst, yearfirst, exact)
+    421             if result is None:
+    422                 try:
+--> 423                     result, timezones = array_strptime(
+    424                         arg, format, exact=exact, errors=errors
+    425                     )
+
+pandas\_libs\tslibs\strptime.pyx in pandas._libs.tslibs.strptime.array_strptime()
+
+ValueError: time data '24' does not match format '%d/%m/%Y' (match)
+
+3Q:
+
+AttributeError                            Traceback (most recent call last)
+<ipython-input-22-8bac3c92bce0> in <module>
+----> 1 df['Journey_month'] = pd.to_datetime(df.Date_Of_Journey,format= "%d/%m/%Y").dt.month
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\generic.py in __getattr__(self, name)
+   5463             if self._info_axis._can_hold_identifiers_and_holds_name(name):
+   5464                 return self[name]
+-> 5465             return object.__getattribute__(self, name)
+   5466 
+   5467     def __setattr__(self, name: str, value) -> None:
+
+AttributeError: 'DataFrame' object has no attribute 'Date_Of_Journey'
+
+
+4Q:
+AttributeError                            Traceback (most recent call last)
+<ipython-input-27-623fd20a977f> in <module>
+      2 
+      3 df['Dep_hour'] = pd.to_datetime(df.Dep_Time).dt.hour
+----> 4 df['Dep_min'] = pd.to_datetime(df.Dep_Time).dt.min
+
+AttributeError: 'DatetimeProperties' object has no attribute 'min'
+
+
+5Q.
+ValueError                                Traceback (most recent call last)
+<ipython-input-22-60f18f7f07c2> in <module>
+     14 for i in range(len(duration)):
+     15     duration_hours.append(int(duration[i].split(sep='h')[0]))
+---> 16     duration_mins.append(int(duration[i].split(sep='m')[0].split()[-1]))
+
+ValueError: invalid literal for int() with base 10: '19h0'
+
+
+6Q.
+df_train = pd.concat([df,'Airline','Source','Destination'],axis=1,) as im supplying this, originally they are integer values. so this error is taken place.
+
+TypeError                                 Traceback (most recent call last)
+<ipython-input-38-040b8ecfd1a9> in <module>
+----> 1 df_train = pd.concat([df,'Airline','Source','Destination'],axis=1)
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\reshape\concat.py in concat(objs, axis, join, ignore_index, keys, levels, names, verify_integrity, sort, copy)
+    283     ValueError: Indexes have overlapping values: ['a']
+    284     """
+--> 285     op = _Concatenator(
+    286         objs,
+    287         axis=axis,
+
+~\anaconda3\envs\web\lib\site-packages\pandas\core\reshape\concat.py in __init__(self, objs, axis, join, keys, levels, names, ignore_index, verify_integrity, copy, sort)
+    368                     "only Series and DataFrame objs are valid"
+    369                 )
+--> 370                 raise TypeError(msg)
+    371 
+    372             # consolidate
+
+TypeError: cannot concatenate object of type '<class 'str'>'; only Series and DataFrame objs are valid
+
+
+
